@@ -1,0 +1,15 @@
+name: Build and verify
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rust version
+        run: rustc --version
+      - name: Build and check
+        run: |
+          cargo test
+          cargo run --release -- --once
